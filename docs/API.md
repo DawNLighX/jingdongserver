@@ -56,6 +56,32 @@
 }
 ```
 
+## 获取用户信息
+
+### url
+
+`/api/user/info`
+
+### method 
+
+`GET`
+
+### request body
+
+无
+
+### response body
+
+```js
+{
+    errno: 0,
+    data: {
+        username: '11122223333'
+    },
+    message: 'errno != 0 的话，错误信息'
+}
+```
+
 ## 获取收货地址列表
 
 ### url

@@ -1,18 +1,21 @@
 /**
- * @description User Model
+ * @description Shop Model
  * @author DawNLighX
  */
 
 const mongoose = require('../db/db')
 
 const Schema = mongoose.Schema({
-    name: {
-        type: String, 
-        required: true
+    name: String,
+    imgUrl: String,
+    sales: Number,
+    expressLimit: {
+        type: Number,
+        default: 0
     },
-    password: {
-        type: String, 
-    },
+    expressPrice: Number,
+    slogan: String
+    
 }, { timestamps: true })
 
 const Shop = mongoose.model('shop', Schema)

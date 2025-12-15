@@ -49,5 +49,8 @@
     sales: 130, // 月售
     price: 4.61, // 现价
     oldPrice: 5.88 // 原价
+    tabs: ['all', 'seckill', 'fruit']
 }
 ```
+
+## 订单

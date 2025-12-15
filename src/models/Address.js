@@ -9,7 +9,6 @@ const Schema = mongoose.Schema({
     username: {
         type: String, 
         required: true,
-        trim: true,
     },
     city: {
         type: String, 
