@@ -11,7 +11,7 @@ const loginCheck = require('../middleware/loginCheck')
 router.prefix('/api/user/address')
 
 // 创建收货地址
-router.post('/', loginCheck, async function (ctx, next) {
+router.post('/', loginCheck, async function (ctx) {
     const userInfo = ctx.session.userInfo
     const username = userInfo.username
     const data = ctx.request.body

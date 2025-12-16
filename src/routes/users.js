@@ -10,7 +10,7 @@ const { SuccessModel, ErrorModel } = require('../res-model/index')
 router.prefix('/api/user')
 
 // 注册
-router.post('/register', async function (ctx, next) {
+router.post('/register', async function (ctx) {
   const { username, password } = ctx.request.body
 
   try {
@@ -25,7 +25,7 @@ router.post('/register', async function (ctx, next) {
 })
 
 // 登录
-router.post('/login', async function (ctx, next) {
+router.post('/login', async function (ctx) {
   const { username, password } = ctx.request.body
 
   const user = await login(username, password)
