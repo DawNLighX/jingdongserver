@@ -54,3 +54,35 @@
 ```
 
 ## 订单
+
+```js
+{
+    username: '用户id',
+    _id: "订单 id", // 示例 202505300880
+    shopId: "3", // 需与商店绑定，如商店id发生变化，若为单纯id改变则可以实时更新，若商店已关店（注销）则保留当时状态
+    shopName: "沃尔玛", // 只与下单时数据状态有关，不能随系统变化
+    isCanceled: false, // 订单是否被取消
+    address: { // 只与下单时数据状态有关，不能随系统变化
+        username: '用户id',
+        city: "厦阳市", // 省市县
+        department: "laboris cupidatat in dolore sunt",
+        houseNumber: "8-07",
+        name: "老俊杰",
+        phone: "72114782883"
+    },
+    products: [ // 只与下单时数据状态有关，不能随系统变化
+        {
+            orderSales: 8,
+            product: {
+                tabs: ['all', 'seckill']
+                shopId: "3", // 需与商店绑定，如商店id发生变化，若为单纯id改变则可以实时更新，若商店已关店（注销）则保留当时状态
+                name: "番茄250g/斤",
+                imgUrl: "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=800&h=800&fit=crop&crop=center",
+                sales: 7,
+                price: 4.61,
+                oldPrice: 4.99
+            }
+        }
+    ]
+}
+```
