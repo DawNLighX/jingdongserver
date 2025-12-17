@@ -6,6 +6,7 @@
 const mongoose = require('../db/db')
 
 const Schema = mongoose.Schema({
+    tabs: [String],
     shopId: {
         type: String,
         required: true
@@ -14,8 +15,7 @@ const Schema = mongoose.Schema({
     imgUrl: String,
     sales: Number,
     price: Number,
-    oldPrice: Number,
-    tabs: [String]
+    oldPrice: Number
     
 }, { timestamps: true })
 

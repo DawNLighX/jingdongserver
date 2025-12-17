@@ -248,35 +248,6 @@
 }
 ```
 
-### url
-
-`/api/user/address/:id`
-
-### method 
-
-`PATCH`
-
-### request body
-
-```js
-{
-    city: '北京',
-    department: 'xxx小区',
-    houseNumber: '7-702',
-    name: '张三',
-    phone: '11122223333'
-}
-```
-
-### response body
-
-```js
-{
-    errno: 0,
-    message: 'errno != 0 的话，错误信息'
-}
-```
-
 ## 店铺详情
 
 ### url
@@ -314,6 +285,10 @@
 ### url
 
 `/api/shop/:id/products`
+
+### query
+
+`tab=all`
 
 ### method 
 

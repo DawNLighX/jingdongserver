@@ -69,7 +69,7 @@ router.patch('/:id', loginCheck, async function (ctx, next) {
         ctx.body = new SuccessModel(address)
     } catch(ex) {
         console.error(ex)
-        ctx.body = new ErrorModel(10006, `获取单个收货地址失败`)
+        ctx.body = new ErrorModel(10007, `更新收货地址失败`)
     }
 })
 
