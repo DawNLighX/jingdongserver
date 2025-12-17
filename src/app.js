@@ -7,11 +7,15 @@ const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 const session = require('koa-generic-session')
 const cors = require('koa2-cors')
+const static = require('koa-static')
+const path = require('path')
 
 const index = require('./routes/index')
 const users = require('./routes/users')
 const address = require('./routes/address')
 const shop = require('./routes/shop')
+const order = require('./routes/order')
+const hotwords = require('./routes/hotwords')
 
 // error handler
 onerror(app)
@@ -39,7 +43,7 @@ app.use(bodyparser({
 }))
 app.use(json())
 app.use(logger())
-app.use(require('koa-static')(__dirname + '/public'))
+app.use(static(path.join(__dirname, '/public')))
 
 app.use(views(__dirname + '/views', {
   extension: 'pug'
@@ -58,10 +62,30 @@ app.use(index.routes(), index.allowedMethods())
 app.use(users.routes(), users.allowedMethods())
 app.use(address.routes(), address.allowedMethods())
 app.use(shop.routes(), shop.allowedMethods())
+app.use(order.routes(), order.allowedMethods())
+app.use(hotwords.routes(), hotwords.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {
   console.error('server error', err, ctx)
+});
+
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`
+  🚀 后端服务启动成功！
+  
+  本地访问:
+    http://localhost:${PORT}
+  
+  局域网访问（手机可用）:
+    http://192.168.1.2:${PORT}
+  
+  测试链接:
+    http://192.168.1.2:${PORT}/api/test
+    http://192.168.1.2:${PORT}/images/product/xigua.jpg
+  `);
 });
 
 module.exports = app
