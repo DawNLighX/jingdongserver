@@ -58,10 +58,11 @@ async function createOrder(username, data) {
 
 /**
  * 获取订单
+ * @param {string} username 用户名
  * @returns 
  */
-async function getOrder(){
-    const orderList = await Order.find().sort({ createdAt: -1 })
+async function getOrder(username){
+    const orderList = await Order.find({ username }).sort({ createdAt: -1 })
     return orderList
 }
 

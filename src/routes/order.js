@@ -10,26 +10,39 @@ const { SuccessModel, ErrorModel } = require('../res-model/index')
 
 router.prefix('/api/order')
 
+// 错误码
+const ORDER_ERROR = {
+  CREATE_FAILED: 10002,
+  GET_FAILED: 10003
+}
+
 // 创建订单
-router.post('/', loginCheck, async function (ctx, next) {
-    const userInfo = ctx.session.userInfo
-    const username = userInfo.username
+router.post('/', loginCheck, async function (ctx) {
+  const userInfo = ctx.session.userInfo
+  const username = userInfo.username
+  const data = ctx.request.body || {}
 
-    const data = ctx.request.body
-
-    try {
-        const newOrder = await createOrder(username, data)
-        ctx.body = new SuccessModel(newOrder)
-    } catch (ex) {
-        console.error(ex)
-        ctx.body = new ErrorModel(10008, '创建订单失败')
-    }
-} )
+  try {
+    const newOrder = await createOrder(username, data)
+    ctx.body = new SuccessModel(newOrder)
+  } catch (ex) {
+    console.error(ex)
+    ctx.body = new ErrorModel(ORDER_ERROR.CREATE_FAILED, '创建订单失败')
+  }
+})
 
 // 获取订单
-router.get('/', loginCheck, async function (ctx, next) {
-    const orderList = await getOrder()
+router.get('/', loginCheck, async function (ctx) {
+  const userInfo = ctx.session.userInfo
+  const username = userInfo.username
+
+  try {
+    const orderList = await getOrder(username)
     ctx.body = new SuccessModel(orderList)
-} )
+  } catch (ex) {
+    console.error(ex)
+    ctx.body = new ErrorModel(ORDER_ERROR.GET_FAILED, '订单获取失败')
+  }  
+})
 
 module.exports = router
