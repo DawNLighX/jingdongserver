@@ -11,6 +11,7 @@ const Address = require('../models/Address');
  * 创建订单
  * @param {string} username 用户名
  * @param {Object} data 数据
+ * @returns {Object} 订单
  */
 async function createOrder(username, data) {
     const {
@@ -59,10 +60,11 @@ async function createOrder(username, data) {
 /**
  * 获取订单
  * @param {string} username 用户名
- * @returns 
+ * @returns {Object} 全部订单
  */
 async function getOrder(username){
     const orderList = await Order.find({ username }).sort({ createdAt: -1 })
+
     return orderList
 }
 

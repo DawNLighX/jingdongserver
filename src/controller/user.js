@@ -9,13 +9,14 @@ const User = require('../models/User')
  * 注册
  * @param {string} username 用户名
  * @param {string} password 密码
- * @returns 
+ * @returns {Object} 用户信息
  */
 async function register(username, password) {
     const newUser = await User.create({
         username,
         password
     })
+    
     return newUser 
 }
 
@@ -23,7 +24,7 @@ async function register(username, password) {
  * 登录
  * @param {string} username 用户名
  * @param {string} password 密码
- * @returns 
+ * @returns {Object} 用户信息
  */
 async function login(username, password) {
     const user = await User.findOne({
