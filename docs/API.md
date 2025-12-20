@@ -214,6 +214,32 @@
 }
 ```
 
+## 删除收货地址
+
+### url
+
+`/api/user/address/:id`
+
+### method 
+
+`DELETE`
+
+### request body
+
+无
+
+### response body
+
+```js
+{
+    errno: 0,
+    data: {
+        id: '收货地址id'
+    },
+    message: 'errno != 0 的话，错误信息'
+}
+```
+
 ## 附近（热门）店铺
 
 ### url

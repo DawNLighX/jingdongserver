@@ -59,10 +59,7 @@ async function updateAddress(id, username, data) {
             _id: id,
             username
         },
-        {
-            username,
-            ...data
-        },
+        data,
         {
             new: true
         }
@@ -71,9 +68,27 @@ async function updateAddress(id, username, data) {
     return address
 }
 
+/**
+ * 删除收货地址
+ * @param {string} id 动态参数
+ * @param {string} username 用户名
+ * @returns {Object} 删除结果
+ */
+async function deleteAddress(id, username) {
+    const result = await Address.findOneAndDelete(
+        {
+            _id: id,
+            username
+        }
+    )
+
+    return result
+}
+
 module.exports = {
     createAddress,
     getAddressList,
     getAddressById,
-    updateAddress
+    updateAddress,
+    deleteAddress
 }

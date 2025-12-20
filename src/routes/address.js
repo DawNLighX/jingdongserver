@@ -8,7 +8,8 @@ const {
   createAddress,
   getAddressList,
   getAddressById,
-  updateAddress
+  updateAddress,
+  deleteAddress
 } = require('../controller/address')
 const { SuccessModel, ErrorModel } = require('../res-model/index')
 const loginCheck = require('../middleware/loginCheck')
@@ -20,7 +21,8 @@ const ADDRESS_ERROR = {
   CREATE_FAILED: 10004,
   GET_LIST_FAILED: 10005,
   GET_DETAIL_FAILED: 10006,
-  UPDATE_FAILED: 10007
+  UPDATE_FAILED: 10007,
+  DELETE_FAILED: 10008
 }
 
 // 创建收货地址
@@ -36,7 +38,7 @@ router.post('/', loginCheck, async function (ctx) {
 
   try {
     const newAddress = await createAddress(username, data)
-    
+
     ctx.body = new SuccessModel(newAddress)
   } catch (ex) {
     console.error(ex)
@@ -99,6 +101,28 @@ router.patch('/:id', loginCheck, async function (ctx) {
   } catch(ex) {
     console.error(ex)
     ctx.body = new ErrorModel(ADDRESS_ERROR.UPDATE_FAILED, `更新收货地址失败`)
+  }
+})
+
+// 删除收货地址
+router.delete('/:id', loginCheck, async function (ctx) {
+  const id = ctx.params.id
+  const userInfo = ctx.session.userInfo
+  const username = userInfo.username
+
+  try {
+    const result = await deleteAddress(id, username)
+
+    if (result) {
+      ctx.body = new SuccessModel({
+        id: result._id
+      })
+    } else {
+      ctx.body = new ErrorModel(ADDRESS_ERROR.DELETE_FAILED, '收货地址不存在或无权删除')
+    }
+  } catch(ex) {
+    console.error(ex)
+    ctx.body = new ErrorModel(ADDRESS_ERROR.DELETE_FAILED, '删除收货地址失败')
   }
 })
 

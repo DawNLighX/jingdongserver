@@ -57,10 +57,14 @@ router.post('/login', async function (ctx) {
     const user = await login(cleanUsername, cleanPassword)
 
     if (user) {
-      ctx.session.userInfo = { username } // 设置session
+      ctx.session.userInfo = {
+        username: user.username,
+        userId: user._id
+      } // 设置session
 
       ctx.body = new SuccessModel({
-        username: user.username
+        username: user.username,
+        id: user._id
       })
     } else {
       ctx.body = new ErrorModel(USER_ERROR.LOGIN_FAILED, '用户名或密码错误，登录失败！')

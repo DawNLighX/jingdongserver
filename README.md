@@ -12,6 +12,7 @@
 - **会话管理**：koa-generic-session + cookie
 - **请求处理**：bodyparser、JSON、日志、静态资源服务
 - **代码质量**：ESLint 检查
+- **密码安全**：bcryptjs 加密存储用户密码
 
 ## 技术栈
 
@@ -170,4 +171,12 @@ curl http://localhost:3000/images/product/xigua.jpg
 
 ---
 
-生成于：2025-12-18
+**模块状态说明**
+
+- **地址管理**：具备完整的增（POST `/api/user/address`）、查（GET `/api/user/address`、GET `/api/user/address/:id`）、改（PATCH `/api/user/address/:id`）、删（DELETE `/api/user/address/:id`）接口，前后端均已实现。
+- **订单管理**：仅保留创建与查询（POST `/api/order`、GET `/api/order`）接口；前端的删除操作仅在 UI 层移除展示项，后端不会删除订单数据以保留历史记录（无 DELETE `/api/order/:id`）。
+- **用户管理**：包含注册/登录和会话管理，密码使用 `bcryptjs` 加密；目前不提供用户资料的在线修改接口（如需要可以扩展）。
+
+如需调整模块权限或增加额外接口（例如订单删除或用户信息修改），可以在 `src/routes` 与 `src/controller` 中扩展相应路由与逻辑。
+
+生成于：2025-12-21

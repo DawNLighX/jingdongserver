@@ -15,6 +15,7 @@ async function register(username, password) {
     const newUser = await User.create({
         username,
         password
+        // 密码会在User模型的save前钩子中自动加密
     })
     
     return newUser 
@@ -24,18 +25,22 @@ async function register(username, password) {
  * 登录
  * @param {string} username 用户名
  * @param {string} password 密码
- * @returns {Object} 用户信息
+ * @returns {boolean|Object} 登录成功返回用户对象，失败返回false
  */
 async function login(username, password) {
     const user = await User.findOne({
-        username,
-        password
+        username
     })
+    
     if (user !== null) {
-        return true
-    } else {
-        return false
+        // 使用bcrypt比对密码
+        const isPasswordMatch = await user.comparePassword(password)
+        if (isPasswordMatch) {
+            return user
+        }
     }
+    
+    return false
 }
 
 module.exports = {
