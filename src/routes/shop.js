@@ -15,9 +15,9 @@ router.prefix('/api/shop')
 
 // 错误码常量
 const SHOP_ERROR = {
-  GET_HOT_LIST_FAILED: 10008,
-  GET_SHOP_FAILED: 10009,
-  GET_PRODUCTS_FAILED: 10010
+  GET_HOT_LIST_FAILED: 10009,
+  GET_SHOP_FAILED: 10010,
+  GET_PRODUCTS_FAILED: 10011
 }
 
 // 获取附近店铺（店铺列表）
