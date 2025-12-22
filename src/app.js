@@ -22,7 +22,11 @@ onerror(app)
 
 // cors 配置
 app.use(cors({
-  origin: 'http://localhost:8080', // 前端 origin
+  // 动态允许前端 origin，避免端口或主机（localhost/127.0.0.1/局域网 IP）不一致导致的跨域 cookie 问题
+  origin: (ctx) => {
+    const requestOrigin = ctx.request && ctx.request.header && ctx.request.header.origin
+    return requestOrigin || 'http://localhost:8080'
+  },
   credentials: true, // 允许跨域带 cookie
 }))
 

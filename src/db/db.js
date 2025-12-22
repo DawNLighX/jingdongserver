@@ -5,21 +5,25 @@
 
 const mongoose = require('mongoose')
 
-const url = 'mongodb://localhost:27017' // 本地默认的 mongodb
-const dbName = 'jingdongDB'
+// Base URL
+const BASE_URL = 'mongodb+srv://DawNLighX:Xli328516HBND@dawnlighxdb.yooydno.mongodb.net/?appName=DawNLighXDB' // 本地默认的 mongodb
+const DB_NAME = 'jingdongDB'
 
 // 开始连接
-mongoose.connect(`${url}/${dbName}`)
+const connectionString = BASE_URL.replace('/?', `/${DB_NAME}?`);
 
-//连接对象
-const db = mongoose.connection
+async function connect() {
+    try {
+        await mongoose.connect(connectionString)
+        
+        console.log(`成功连接到MongoDB Atlas！`);
+        console.log(`cluster: DawNLighXDB`);
+        console.log(`数据库: ${DB_NAME}`);
+    } catch (ex) {
+        console.error('连接失败',ex)
+    }
+}
 
-db.on('error', err => {
-    console.log('mongoose connect error', err)
-})
-
-db.once('open', () => {
-    console.log('jingdongDB 连接成功!')
-})
+connect()
 
 module.exports = mongoose

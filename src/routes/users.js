@@ -30,6 +30,12 @@ router.post('/register', async function (ctx) {
   try {
     const newUser = await register(cleanUsername, cleanPassword)
 
+    // 注册成功后设置 session，使用户注册后即登录
+    ctx.session.userInfo = {
+      username: newUser.username,
+      userId: newUser._id
+    }
+
     ctx.body = new SuccessModel({
       username: newUser.username,
       id: newUser._id || newUser.id,
