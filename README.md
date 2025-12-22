@@ -33,7 +33,8 @@ npm install
 
 ### 2. 环境配置
 
-- 确保 MongoDB 运行在本地 (默认 `mongodb://localhost:27017/jingdong`)
+- 项目支持使用 MongoDB Atlas（云端）或本地 MongoDB。最新提交已支持通过环境变量 `MONGO_URI` 连接到 Atlas。
+- 若未配置 `MONGO_URI`，项目会回退到本地默认连接（若代码中有默认值）。
 - 前端地址应为 `http://localhost:8080`（CORS 配置见 `src/app.js`）
 
 ### 3. 启动开发服务
@@ -123,7 +124,8 @@ app.use(static(path.join(__dirname, '/public')))
 | 变量 | 默认值 | 说明 |
 |------|--------|------|
 | `PORT` | 3000 | 服务监听端口 |
-| `MONGODB_URI` | `mongodb://localhost:27017/jingdong` | MongoDB 连接字符串 |
+| `MONGO_URI` | — | MongoDB 连接字符串（推荐在生产/部署时配置为 Atlas 的连接字符串；若不提供，项目可能使用代码中的默认本地地址） |
+| `DB_NAME` | jingdongDB | 可选：当 `MONGO_URI` 为不含数据库名的基础 URI 时，可用此变量指定数据库名 |
 
 ## 测试 API
 
@@ -179,4 +181,3 @@ curl http://localhost:3000/images/product/xigua.jpg
 
 如需调整模块权限或增加额外接口（例如订单删除或用户信息修改），可以在 `src/routes` 与 `src/controller` 中扩展相应路由与逻辑。
 
-生成于：2025-12-21
