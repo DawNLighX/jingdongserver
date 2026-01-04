@@ -12,12 +12,20 @@ const User = require('../models/User')
  * @returns {Object} 用户信息
  */
 async function register(username, password) {
+    // 检查用户名是否已存在，避免触发重复键错误
+    const exist = await User.findOne({ username })
+    if (exist) {
+        const err = new Error('用户名已存在')
+        err.code = 11000
+        throw err
+    }
+
     const newUser = await User.create({
         username,
         password
         // 密码会在User模型的save前钩子中自动加密
     })
-    
+
     return newUser 
 }
 

@@ -5,7 +5,8 @@
 
 const router = require('koa-router')()
 const { createOrder, getOrder } = require('../controller/order')
-const loginCheck = require('../middleware/loginCheck')
+// const loginCheck = require('../middleware/loginCheck')
+const tokenCheck = require('../middleware/tokenCheck') // 改用 token 验证
 const { SuccessModel, ErrorModel } = require('../res-model/index')
 
 router.prefix('/api/order')
@@ -17,8 +18,8 @@ const ORDER_ERROR = {
 }
 
 // 创建订单
-router.post('/', loginCheck, async function (ctx) {
-  const userInfo = ctx.session.userInfo
+router.post('/', tokenCheck, async function (ctx) {
+  const userInfo = ctx.state.userInfo // 改从 ctx.state 获取
   const username = userInfo.username
   const data = ctx.request.body || {}
 
@@ -32,8 +33,8 @@ router.post('/', loginCheck, async function (ctx) {
 })
 
 // 获取订单
-router.get('/', loginCheck, async function (ctx) {
-  const userInfo = ctx.session.userInfo
+router.get('/', tokenCheck, async function (ctx) {
+  const userInfo = ctx.state.userInfo // 改从 ctx.state 获取
   const username = userInfo.username
 
   try {

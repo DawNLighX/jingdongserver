@@ -12,7 +12,8 @@ const {
   deleteAddress
 } = require('../controller/address')
 const { SuccessModel, ErrorModel } = require('../res-model/index')
-const loginCheck = require('../middleware/loginCheck')
+// const loginCheck = require('../middleware/loginCheck')
+const tokenCheck = require('../middleware/tokenCheck') // 改用 token 验证
 
 router.prefix('/api/user/address')
 
@@ -26,8 +27,8 @@ const ADDRESS_ERROR = {
 }
 
 // 创建收货地址
-router.post('/', loginCheck, async function (ctx) {
-  const userInfo = ctx.session.userInfo
+router.post('/', tokenCheck, async function (ctx) {
+  const userInfo = ctx.state.userInfo // 改从 ctx.state 获取
   const username = userInfo.username
   const data = ctx.request.body || {}
 
@@ -47,8 +48,8 @@ router.post('/', loginCheck, async function (ctx) {
 })
 
 // 获取收货地址列表
-router.get('/', loginCheck, async function (ctx) {
-  const userInfo = ctx.session.userInfo
+router.get('/', tokenCheck, async function (ctx) {
+  const userInfo = ctx.state.userInfo // 改从 ctx.state 获取
   const username = userInfo.username
 
   try {
@@ -62,9 +63,9 @@ router.get('/', loginCheck, async function (ctx) {
 })
 
 // 获取单个收货地址
-router.get('/:id', loginCheck, async function (ctx) {
+router.get('/:id', tokenCheck, async function (ctx) {
   const id = ctx.params.id // 与地址中的命名保持一致
-  const userInfo = ctx.session.userInfo
+  const userInfo = ctx.state.userInfo // 改从 ctx.state 获取
   const username = userInfo.username
 
   try {
@@ -83,9 +84,9 @@ router.get('/:id', loginCheck, async function (ctx) {
 })
 
 // 更新收货地址
-router.patch('/:id', loginCheck, async function (ctx) {
+router.patch('/:id', tokenCheck, async function (ctx) {
   const id = ctx.params.id // 与地址中的命名保持一致
-  const userInfo = ctx.session.userInfo
+  const userInfo = ctx.state.userInfo // 改从 ctx.state 获取
   const username = userInfo.username
   const data = ctx.request.body
 
@@ -105,9 +106,9 @@ router.patch('/:id', loginCheck, async function (ctx) {
 })
 
 // 删除收货地址
-router.delete('/:id', loginCheck, async function (ctx) {
+router.delete('/:id', tokenCheck, async function (ctx) {
   const id = ctx.params.id
-  const userInfo = ctx.session.userInfo
+  const userInfo = ctx.state.userInfo // 改从 ctx.state 获取
   const username = userInfo.username
 
   try {
